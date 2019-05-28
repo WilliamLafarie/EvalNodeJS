@@ -1,0 +1,17 @@
+<% include partials/header %>
+
+<ul>
+    <% for(let item of userCollection){ %>
+        <% if( item._id === connectedUser){%>
+            <% for(let key in item){ %>
+                <li><b><%= key %>:</b> <%= item[key] %></li>
+            <% } %>
+        <% } %>
+    <% } %>
+
+</ul> %>
+
+<a href="/"> Déconnexion </a>
+
+
+<% include partials/footer %>

@@ -1,0 +1,10 @@
+<% include partials/header %>
+
+            <h2>Liste des utilisateurs</h2>
+           <ul>
+                <% for(let item of userCollection){ %>
+                <li><%= item.name %></li>
+                <% }%>
+            </ul>
+
+<% include partials/footer %>

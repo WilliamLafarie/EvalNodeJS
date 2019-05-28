@@ -1,0 +1,53 @@
+<form novalidate>
+    <label for="email">Email</label>
+    <input type="email" name="email" id="email" required minlength="5">
+
+    <label for="password">Mot de passe</label>
+    <input type="password" name="password" id="password" required minlength="5">
+
+    <button type="submit">Connexion</button>
+</form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const email = document.querySelector('#email');
+        const password = document.querySelector('#password');
+
+        const login = (email, password) => {
+            localStorage.setItem('user-email', email);
+            localStorage.setItem('user-password', password);
+            // You can send data to server like this:
+            fetch('/api/login', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        password: password
+                    })
+                })
+                .then(response => response.json() )
+                .then(json => console.log(json))
+                .then(data => 
+                    window.location.replace('/me')
+                    )
+                .catch(error => console.error(error));
+        }
+
+        document.querySelector('form').addEventListener('submit', (event) => {
+
+            event.preventDefault();
+
+            let formError = 0;
+
+            if (email.value.length <= 4 || password.value.length <= 4) formError++;
+
+            if (!formError) {
+                console.log('Well done');
+                login(email.value, password.value)
+            };
+        });
+    });
+</script>
